@@ -1,6 +1,5 @@
 #! /usr/bin/bash
 # coding=utf-8
-# author:chuzhuo
 
 """
     a function imitating cell2Mat
