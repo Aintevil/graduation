@@ -22,6 +22,19 @@ def get_static_matrix(come_p, come_s, serve_p, serve_s, k, nc):
 
 # function to generate transfer possibility matrix
 def get_transfer_matrix(come_p, come_s, serve_p, serve_s, k, nc):
+    if k<0:
+        print("invalid k")
+        exit(-1)
+    if k == 0:
+        transfer_matrix = np.array(
+            [
+                [(1-come_s)*(1-come_p), (1-come_p)*come_s, come_p],
+                [(1-come_p)*(1-come_s)*serve_s, (1-come_p)*((1-serve_s)+come_s*serve_s), come_p],
+                [(1-come_p)*(1-come_s)*serve_p, (1-come_p)*come_s*serve_p, (1-serve_p) + serve_p*come_p]
+            ]
+        )
+        return transfer_matrix
+
     transfer_matrix = np.empty((k+2, k+2),dtype=np.ndarray)
     transfer_matrix[0, 0] = np.array([(1-come_p)*(1-come_s)])
     transfer_matrix[0, 1] = np.array([(1-come_p)*come_s, come_p*(1-come_s)])
