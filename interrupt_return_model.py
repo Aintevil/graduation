@@ -223,5 +223,5 @@ def get_avg_length(come_p, come_s, serve_p, serve_s, k, nc):
 # function to get average delay
 def get_avg_delay(come_p, come_s, serve_p, serve_s, k, nc):
     avg_length = get_avg_length(come_p, come_s, serve_p, serve_s, k, nc)
-    throughput_capcity = get_throughput_capcity(come_p, come_s, serve_p, serve_s, k, nc)
-    return avg_length/throughput_capcity
+    block_ratio = get_block_ratio(come_p, come_s, serve_p, serve_s, k, nc)
+    return avg_length/(come_s - block_ratio)

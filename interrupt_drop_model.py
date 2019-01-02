@@ -119,7 +119,7 @@ def get_interrupt_ratio(come_p, come_s, serve_p, serve_s, k, nc):
     static_matrix = get_static_matrix(come_p, come_s, serve_p, serve_s, k, nc)
     interrupt_ratio = 0.0
     for i in range(1, 2*k+2, 2):
-        interrupt_ratio = interrupt_ratio + static_matrix[0, i] * come_p * math.ceil((i//2 + 1.0)*nc/(k+1)) * serve_s
+        interrupt_ratio = interrupt_ratio + static_matrix[0, i]*come_p*(1-math.ceil((i//2+1)*nc/(k+1.0))*serve_s)
     return interrupt_ratio
 
 
@@ -141,5 +141,5 @@ def get_avg_length(come_p, come_s, serve_p, serve_s, k, nc):
 # function to get average delay
 def get_avg_delay(come_p, come_s, serve_p, serve_s, k, nc):
     avg_length = get_avg_length(come_p, come_s, serve_p, serve_s, k, nc)
-    throughput_capcity = get_throughput_capcity(come_p, come_s, serve_p, serve_s, k, nc)
-    return avg_length/throughput_capcity
+    block_ratio = get_block_ratio(come_p, come_s, serve_p, serve_s, k, nc)
+    return avg_length / (come_s - block_ratio)
