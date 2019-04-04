@@ -25,30 +25,49 @@ def compare_delay():
 
     fig = plt.figure(figsize=(7.00, 5.25), clear=True)
     axe_1 = fig.add_axes((0.1, 0.1, 0.8, 0.8))
+    axe_1.tick_params(top='on', right='on', direction='in')
     come_p = 0.16
     for i in range(0, x_axis.shape[0]):
         delay_drop[i] = drop_model.get_avg_delay(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
         delay_return[i] = return_model.get_avg_delay(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
-    axe_1.plot(x_axis, delay_drop, linewidth=0.5, color="black", marker=".",
-               label=r"$\lambda_1=%s$ Model Drop" % serve_p)
-    axe_1.plot(x_axis, delay_return, linewidth=0.5, color="gray", marker=".",
-               label=r"$\lambda_1=%s$ Model Return" % serve_p)
+    # axe_1.plot(x_axis, delay_drop, linewidth=0.5, color="black", marker=".",
+    #            label=r"$\lambda_1=%s$ Model Drop" % serve_p)
+    # axe_1.plot(x_axis, delay_return, linewidth=0.5, color="gray", marker=".",
+    #            label=r"$\lambda_1=%s$ Model Return" % serve_p)
+    axe_1.plot(x_axis, delay_drop, linewidth=0.5, color="black", marker=".", label=r"$\lambda_1=%s$" % come_p)
+    axe_1.plot(x_axis, delay_return, linewidth=0.5, color="gray", marker=".")
+    axe_1.annotate("Model Drop", xy=(x_axis[1],delay_drop[1]), xytext=(8,10),arrowprops=dict(
+        arrowstyle = '->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[5], delay_return[5]), xytext=(3, 30), arrowprops=dict(
+        arrowstyle='->'
+    ))
 
     come_p = 0.04
     for i in range(0, x_axis.shape[0]):
         delay_drop[i] = drop_model.get_avg_delay(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
         delay_return[i] = return_model.get_avg_delay(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
+    # axe_1.plot(x_axis, delay_drop, linewidth=0.5, color="black", marker="*",
+    #            label=r"$\lambda_1=%s$ Model Drop" % serve_p)
+    # axe_1.plot(x_axis, delay_return, linewidth=0.5, color="gray", marker="*",
+    #            label=r"$\lambda_1=%s$ Model Return" % serve_p)
     axe_1.plot(x_axis, delay_drop, linewidth=0.5, color="black", marker="*",
-               label=r"$\lambda_1=%s$ Model Drop" % serve_p)
-    axe_1.plot(x_axis, delay_return, linewidth=0.5, color="gray", marker="*",
-               label=r"$\lambda_1=%s$ Model Return" % serve_p)
+               label=r"$\lambda_1=%s$" % come_p)
+    axe_1.plot(x_axis, delay_return, linewidth=0.5, color="gray", marker="*",)
+
+    axe_1.annotate("Model Drop", xy=(x_axis[3], delay_drop[3]), xytext=(8, 10), arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[4], delay_return[4]), xytext=(3, 30), arrowprops=dict(
+        arrowstyle='->'
+    ))
     axe_1.set_xlabel("cache k")
     axe_1.set_xlim(left=1)
     axe_1.set_xlim(right=10)
     axe_1.set_xticks(range(1, x_axis.shape[0] + 1, 1))
-    axe_1.set_ylabel("avg delay")
+    axe_1.set_ylabel(r"avg_delay $\zeta$")
     axe_1.legend()
-    axe_1.set_title(r'$\zeta$ - k')
+    # axe_1.set_title(r'$\zeta$ - k')
     fig.show(warn=False)
     fig.savefig(fname="./result/delay_compare.svg", format="svg")
 
@@ -69,17 +88,36 @@ def compare_blocking_ratio():
 
     fig = plt.figure(figsize=(7.00, 5.25), clear=True)
     axe_1 = fig.add_axes((0.1, 0.1, 0.8, 0.8))
-    axe_1.plot(x_axis, block_drop_1, label=r"$\lambda_1=0.16$ Model Drop", marker=".", color="black",linewidth=0.5)
-    axe_1.plot(x_axis, block_return_1, label=r"$\lambda_1=0.16$ Model Return", marker=".", color="gray",linewidth=0.5)
-    axe_1.plot(x_axis, block_drop_2, label=r"$\lambda_1=0.04$ Model Drop", marker="*", color="black",linewidth=0.5)
-    axe_1.plot(x_axis, block_return_2, label=r"$\lambda_1=0.04$ Model Return", marker="*", color="gray",linewidth=0.5)
+    axe_1.tick_params(top='on', right='on', direction='in')
+    # axe_1.plot(x_axis, block_drop_1, label=r"$\lambda_1=0.16$ Model Drop", marker=".", color="black",linewidth=0.5)
+    # axe_1.plot(x_axis, block_return_1, label=r"$\lambda_1=0.16$ Model Return", marker=".", color="gray",linewidth=0.5)
+    # axe_1.plot(x_axis, block_drop_2, label=r"$\lambda_1=0.04$ Model Drop", marker="*", color="black",linewidth=0.5)
+    # axe_1.plot(x_axis, block_return_2, label=r"$\lambda_1=0.04$ Model Return", marker="*", color="gray",linewidth=0.5)
+    axe_1.plot(x_axis, block_drop_1, label=r"$\lambda_1=0.16$", marker=".", color="black",linewidth=0.5)
+    axe_1.plot(x_axis, block_return_1, marker=".", color="gray",linewidth=0.5)
+    axe_1.plot(x_axis, block_drop_2, label=r"$\lambda_1=0.04$", marker="*", color="black",linewidth=0.5)
+    axe_1.plot(x_axis, block_return_2, marker="*", color="gray",linewidth=0.5)
+    axe_1.annotate("Model Drop", xy=(x_axis[1],block_drop_1[1]),xytext=(6,0.14), arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Drop", xy=(x_axis[2], block_drop_2[2]), xytext=(6, 0.14), arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[5], block_return_1[5]), xytext=(8, 0.12), arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[6], block_return_2[6]), xytext=(8, 0.12), arrowprops=dict(
+        arrowstyle='->'
+    ))
+
     axe_1.set_xlabel("cache k")
     axe_1.set_xlim(left=1)
     axe_1.set_xlim(right=10)
     axe_1.set_xticks(range(1, x_axis.shape[0] + 1, 1))
-    axe_1.set_ylabel("block_ratio")
+    # axe_1.set_ylabel("block_ratio")
+    axe_1.set_ylabel(r'block_ratio $\beta$')
     axe_1.legend()
-    axe_1.set_title(r'$\beta$ - k')
+    # axe_1.set_title(r'$\beta$ - k')
     fig.show(warn=False)
     fig.savefig(fname="./result/block_ratio_compare.svg", format="svg")
 
@@ -91,28 +129,50 @@ def compare_loss_ratio():
     interrupt_return = np.arange(1, 11, 1, dtype="float")
     fig = plt.figure(figsize=(7.00, 5.25), clear=True)
     axe_1 = fig.add_axes((0.1, 0.1, 0.8, 0.8))
+    axe_1.tick_params(top='on', right='on', direction='in')
     come_p = 0.16
     for i in range(0, x_axis.shape[0]):
         interrupt_drop[i] = drop_model.get_interrupt_ratio(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
         interrupt_return[i] = return_model.get_interrupt_ratio(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
-    axe_1.plot(x_axis, interrupt_drop, label=r"$\lambda_1=%s$ Model Drop" % come_p, marker=".",color="black", linewidth=0.5)
-    axe_1.plot(x_axis, interrupt_return,label=r"$\lambda_1=%s$ Model Return" % come_p, marker=".",color="gray", linewidth=0.5)
+    # axe_1.plot(x_axis, interrupt_drop, label=r"$\lambda_1=%s$ Model Drop" % come_p, marker=".",color="black", linewidth=0.5)
+    # axe_1.plot(x_axis, interrupt_return,label=r"$\lambda_1=%s$ Model Return" % come_p, marker=".",color="gray", linewidth=0.5)
+    axe_1.plot(x_axis, interrupt_drop, label=r"$\lambda_1=%s$" % come_p, marker=".", color="black",
+               linewidth=0.5)
+    axe_1.plot(x_axis, interrupt_return, marker=".", color="gray",
+               linewidth=0.5)
+    axe_1.annotate("Model Drop", xy=(x_axis[1],interrupt_drop[1]),xytext=(3,0.015),arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[5],interrupt_return[5]),xytext=(8,0.015),arrowprops=dict(
+        arrowstyle='->'
+    ))
     come_p = 0.04
     for i in range(0, x_axis.shape[0]):
         interrupt_drop[i] = drop_model.get_interrupt_ratio(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
         interrupt_return[i] = return_model.get_interrupt_ratio(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
-    axe_1.plot(x_axis, interrupt_drop, label=r"$\lambda_1=%s$ Model Drop" % come_p, marker="*",color="black", linewidth=0.5)
-    axe_1.plot(x_axis, interrupt_return, label=r"$\lambda_1=%s$ Model Return" % come_p,marker="*",color="gray", linewidth=0.5)
+    # axe_1.plot(x_axis, interrupt_drop, label=r"$\lambda_1=%s$ Model Drop" % come_p, marker="*",color="black", linewidth=0.5)
+    # axe_1.plot(x_axis, interrupt_return, label=r"$\lambda_1=%s$ Model Return" % come_p,marker="*",color="gray", linewidth=0.5)
+    axe_1.plot(x_axis, interrupt_drop, label=r"$\lambda_1=%s$" % come_p, marker="*", color="black",
+               linewidth=0.5)
+    axe_1.plot(x_axis, interrupt_return, marker="*", color="gray",
+               linewidth=0.5)
+    axe_1.annotate("Model Drop", xy=(x_axis[1], interrupt_drop[1]), xytext=(3, 0.015), arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[5], interrupt_return[5]), xytext=(8, 0.015), arrowprops=dict(
+        arrowstyle='->'
+    ))
+
 
 
     axe_1.set_xlabel("cache k")
     axe_1.set_xlim(left=1)
     axe_1.set_xlim(right=10)
     axe_1.set_xticks(range(1, x_axis.shape[0] + 1, 1))
-    axe_1.set_ylabel("interrupt_ratio")
+    axe_1.set_ylabel(r'interrupt_ratio $\gamma$')
     # axe_1.grid()
     axe_1.legend()
-    axe_1.set_title(r'$\gamma$ - k')
+    # axe_1.set_title(r'$\gamma$ - k')
     fig.show(warn=False)
     fig.savefig(fname="./result/interrupt_ratio_compare.svg", format="svg")
 
@@ -125,25 +185,42 @@ def compare_throughput():
 
     fig = plt.figure(figsize=(7.00, 5.25), clear=True)
     axe_1 = fig.add_axes((0.1, 0.1, 0.8, 0.8))
+    axe_1.tick_params(top='on', right='on', direction='in')
     come_p = 0.16
     for i in range(0, x_axis.shape[0]):
         io_drop[i] = drop_model.get_throughput_capcity(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
         io_return[i] = return_model.get_throughput_capcity(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
-    axe_1.plot(x_axis, io_drop, marker=".", label=r"$\lambda_1=%s$ Model Drop" % come_p, color="black", linewidth=0.5)
-    axe_1.plot(x_axis, io_return, marker=".",label=r"$\lambda_1=%s$ Model Return" % come_p, color="gray", linewidth=0.5)
+    # axe_1.plot(x_axis, io_drop, marker=".", label=r"$\lambda_1=%s$ Model Drop" % come_p, color="black", linewidth=0.5)
+    # axe_1.plot(x_axis, io_return, marker=".",label=r"$\lambda_1=%s$ Model Return" % come_p, color="gray", linewidth=0.5)
+    axe_1.plot(x_axis, io_drop, marker=".", label=r"$\lambda_1=%s$" % come_p, color="black", linewidth=0.5)
+    axe_1.plot(x_axis, io_return, marker=".", color="gray", linewidth=0.5)
+    axe_1.annotate("Model Drop", xy=(x_axis[1],io_drop[1]),xytext=(4,0.20),arrowprops=dict(
+        arrowstyle = '->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[5], io_return[5]), xytext=(7, 0.20), arrowprops=dict(
+        arrowstyle='->'
+    ))
     come_p = 0.04
     for i in range(0, x_axis.shape[0]):
         io_drop[i] = drop_model.get_throughput_capcity(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
         io_return[i] = return_model.get_throughput_capcity(come_p, come_s, serve_p, serve_s, x_axis[i], nc)
-    axe_1.plot(x_axis, io_drop, marker="*", label=r"$\lambda_1=%s$ Model Drop" %come_p, color="black", linewidth=0.5)
-    axe_1.plot(x_axis, io_return, marker="*",label=r"$\lambda_1=%s$ Model Return" %come_p, color="gray", linewidth=0.5)
+    # axe_1.plot(x_axis, io_drop, marker="*", label=r"$\lambda_1=%s$ Model Drop" %come_p, color="black", linewidth=0.5)
+    # axe_1.plot(x_axis, io_return, marker="*",label=r"$\lambda_1=%s$ Model Return" %come_p, color="gray", linewidth=0.5)
+    axe_1.plot(x_axis, io_drop, marker="*", label=r"$\lambda_1=%s$" % come_p, color="black", linewidth=0.5)
+    axe_1.plot(x_axis, io_return, marker="*", color="gray", linewidth=0.5)
+    axe_1.annotate("Model Drop", xy=(x_axis[1], io_drop[1]), xytext=(4, 0.20), arrowprops=dict(
+        arrowstyle='->'
+    ))
+    axe_1.annotate("Model Return", xy=(x_axis[5], io_return[5]), xytext=(7, 0.20), arrowprops=dict(
+        arrowstyle='->'
+    ))
     axe_1.set_xlabel("cache k")
     axe_1.set_xlim(left=1)
     axe_1.set_xlim(right=10)
     axe_1.set_xticks(range(1, x_axis.shape[0] + 1, 1))
-    axe_1.set_ylabel("throughput_capcity")
+    axe_1.set_ylabel(r"throughput_capcity $\theta$")
     axe_1.legend()
-    axe_1.set_title(r'$\theta$ - k')
+    # axe_1.set_title(r'$\theta$ - k')
     fig.show(warn=False)
     fig.savefig(fname="./result/io_compare.svg", format="svg")
 
