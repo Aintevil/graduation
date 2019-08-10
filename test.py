@@ -1,6 +1,5 @@
 #! /usr/bin/python2
 # coding=utf-8
-# author:chuzhuo
 
 import numpy as np
 import matplotlib.pyplot as plt

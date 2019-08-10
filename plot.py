@@ -283,5 +283,3 @@ compare_delay()
 compare_blocking_ratio()
 compare_throughput()
 compare_loss_ratio()
-
-

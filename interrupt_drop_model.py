@@ -2,6 +2,14 @@ import numpy as np
 import convert_helper
 import math
 
+'''
+    come_p      the arrival probability of PU
+    come_s:     the arrival probability of SU
+    serve_p:    the serve probability of PU
+    serve_s:    the serve probability of SU in single channel
+    k:          the amount of SUs in the system
+    nc:         the amount of channels
+'''
 
 # function to generate static possibility matrix
 def get_static_matrix(come_p, come_s, serve_p, serve_s, k, nc):
